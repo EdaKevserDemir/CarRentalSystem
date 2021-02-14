@@ -1,5 +1,6 @@
 ﻿using Business.Concrete;
 using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
 using System;
@@ -11,53 +12,47 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("GetAll Process");
-            CarManager carManager = new CarManager(new InMemoryCarDal());
+            // CarModels();
+
+            // AddNewCar();
+
+            // GetBrandIdTest();
+
+            BrandManager brandManager=new BrandManager(new )
             
-            foreach (var car in carManager.GetAll())
-            {
-                Console.WriteLine(car.CarId+" "+car.BrandId + " " +car.ColorId+" "+ car.ModelYear + " " + car.DailyPrice+ " "+car.Description);
-            }
-
-            Console.WriteLine("Get Brand Data Process");
-            BrandManager brandManager = new BrandManager(new InMemoryBrandDal());
-            foreach (var brand in brandManager.GetAll())
-            {
-                Console.WriteLine( brand.BrandId + " " +brand.BrandName);
-
-            }
-            Console.WriteLine("Add new Color Process");
-
-            ColorManager colorManager = new ColorManager(new InMemoryColorDal());
-            IColorDal colorDal = new InMemoryColorDal();
-            colorDal.Add(new Color { ColorId = 5, ColorName = "White" });
-
-            foreach (var color in colorDal.GetAll())
-            {
-                Console.WriteLine(color.ColorId + " " + color.ColorName);
-            }
-
-            Console.WriteLine("Delete Process");
-
-            ICarDal carDal = new InMemoryCarDal();
-            carDal.Delete(new Car { CarId=2});
-            foreach (var car in carDal.GetAll())
-            {
-                Console.WriteLine(car.CarId + " " +car.ColorId+" "+car.BrandId + " " + car.ModelYear + " " + car.DailyPrice + " " + car.Description);
-            }
-
-            Console.WriteLine("Update Process");
-            carDal.Update(new Car { CarId=3,BrandId=2,ColorId=4,ModelYear=2025,DailyPrice=2000,Description="Auto"});
-
-            foreach (var car in carDal.GetAll())
-            {
-                Console.WriteLine(car.CarId + " " + car.ColorId+" " + car.BrandId + " " + car.ModelYear + " " + car.DailyPrice + " " + car.Description);
-            }
-
             Console.ReadLine();
+
         }
 
+        private static void GetBrandIdTest()
+        {
+            CarManager carManager = new CarManager(new EfCarDal());
+            foreach (var car in carManager.GetCarsByBrandId(6))
+            {
+                Console.WriteLine(car.CarId + " " + car.ModelYear + " " + car.DailyPrice);
+            }
+        }
+
+        private static void AddNewCar()
+        {
+            CarManager carManager = new CarManager(new EfCarDal());
+
+            carManager.Add(new Car { CarId = 9, CarBrandId = 2, CarColorId = 2, DailyPrice = 1300, Description = "new car1", ModelYear = 2001 });
+
+            foreach (var car in carManager.GetCarDetails())
+            {
+                Console.WriteLine(car.BrandName + " : " + car.ColorName);
+            }
+        }
+
+        private static void CarModels()
+        {
+            CarManager carManager = new CarManager(new EfCarDal());
+            foreach (var car in carManager.GetCarDetails())
+            {
+                Console.WriteLine(car.BrandName +" "+car.BrandModel+" "+car.ModelYear+" "+car.ColorName);
+            }
+        }
     }
 
 }
-

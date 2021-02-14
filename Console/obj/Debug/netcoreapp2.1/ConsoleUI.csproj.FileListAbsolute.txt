@@ -16,3 +16,5 @@ C:\Users\EKD\source\repos\ReCapProject\Console\obj\Debug\netcoreapp2.1\ConsoleUI
 C:\Users\EKD\source\repos\ReCapProject\Console\obj\Debug\netcoreapp2.1\ConsoleUI.csproj.CopyComplete
 C:\Users\EKD\source\repos\ReCapProject\Console\obj\Debug\netcoreapp2.1\ConsoleUI.dll
 C:\Users\EKD\source\repos\ReCapProject\Console\obj\Debug\netcoreapp2.1\ConsoleUI.pdb
+C:\Users\EKD\source\repos\ReCapProject\Console\bin\Debug\netcoreapp2.1\Core.dll
+C:\Users\EKD\source\repos\ReCapProject\Console\bin\Debug\netcoreapp2.1\Core.pdb
