@@ -12,14 +12,13 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            // CarModels();
+             CarModels();
 
             // AddNewCar();
 
             // GetBrandIdTest();
 
-            BrandManager brandManager=new BrandManager(new )
-            
+
             Console.ReadLine();
 
         }
@@ -27,7 +26,7 @@ namespace ConsoleUI
         private static void GetBrandIdTest()
         {
             CarManager carManager = new CarManager(new EfCarDal());
-            foreach (var car in carManager.GetCarsByBrandId(6))
+            foreach (var car in carManager.GetCarsByBrandId(6).Data)
             {
                 Console.WriteLine(car.CarId + " " + car.ModelYear + " " + car.DailyPrice);
             }
@@ -39,7 +38,7 @@ namespace ConsoleUI
 
             carManager.Add(new Car { CarId = 9, CarBrandId = 2, CarColorId = 2, DailyPrice = 1300, Description = "new car1", ModelYear = 2001 });
 
-            foreach (var car in carManager.GetCarDetails())
+            foreach (var car in carManager.GetCarDetails().Data)
             {
                 Console.WriteLine(car.BrandName + " : " + car.ColorName);
             }
@@ -48,10 +47,21 @@ namespace ConsoleUI
         private static void CarModels()
         {
             CarManager carManager = new CarManager(new EfCarDal());
-            foreach (var car in carManager.GetCarDetails())
+
+            var result = carManager.GetCarDetails();
+
+            if (result.Success == true)
             {
-                Console.WriteLine(car.BrandName +" "+car.BrandModel+" "+car.ModelYear+" "+car.ColorName);
+                foreach (var car in result.Data)
+                {
+                    Console.WriteLine(car.BrandName + " " + car.BrandModel + " " + car.ModelYear + " " + car.ColorName);
+                }
             }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+                
         }
     }
 
